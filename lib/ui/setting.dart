@@ -33,9 +33,6 @@ class RestaurantSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pengaturan'),
-      ),
       body: Consumer<PreferencesProvider>(
         builder: (_, preferences, __) {
           return Consumer<SchedulingProvider>(
