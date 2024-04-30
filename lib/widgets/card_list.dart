@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:restaurants_app/utils/theme.dart';
 import 'package:restaurants_app/data/models/restaurant_list.dart';
 import 'package:restaurants_app/ui/detail.dart';
@@ -33,11 +35,14 @@ class CardList extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Image.network(
+                    CachedNetworkImage(
+                      imageUrl:
                       'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                     Container(width: 20),
                     Expanded(

@@ -47,23 +47,18 @@ class RestaurantSettingPage extends StatelessWidget {
                 value: preferences.isDailyReminderActive,
                 onChanged: (value) async {
                   if (value == true) {
-                    final androidInfo = await DeviceInfoPlugin().androidInfo;
 
-                    if (androidInfo.version.sdkInt > 32) {
-                      final status = await Permission.notification.status;
-
-                      if (status == PermissionStatus.granted) {
+                    final status = await Permission.notification.status;
+                    if (status == PermissionStatus.granted) {
+                      setReminder(value);
+                    } else if (status == PermissionStatus.denied) {
+                      final result = await Permission.notification.request();
+                      if (result == PermissionStatus.granted) {
                         setReminder(value);
-                      } else if (status == PermissionStatus.denied) {
-                        final result = await Permission.notification.request();
-
-                        if (result == PermissionStatus.granted) {
-                          setReminder(value);
-                        } else if (result ==
-                            PermissionStatus.permanentlyDenied) {
-                          if (context.mounted) {
-                            showDialogPermissionIsPermanentlyDenied(context);
-                          }
+                      } else if (result ==
+                          PermissionStatus.permanentlyDenied) {
+                        if (context.mounted) {
+                          showDialogPermissionIsPermanentlyDenied(context);
                         }
                       }
                     }
