@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:restaurants_app/data/models/restaurant_list.dart';
 import 'package:restaurants_app/utils/theme.dart';
 import 'package:restaurants_app/data/api/restaurant_services.dart';
-import 'package:restaurants_app/data/db/database_helper.dart';
 import 'package:restaurants_app/provider/restaurant_favorite_provider.dart';
 import 'package:restaurants_app/provider/restaurant_detail_provider.dart';
 import 'package:restaurants_app/widgets/message.dart';
@@ -24,7 +24,7 @@ class RestaurantDetailPage extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<RestaurantDetailProvider>(
           create: (_) => RestaurantDetailProvider(
-            apiService: ApiService(),
+            apiService: ApiService(http.Client()),
             restaurantId: restaurant.id,
           ),
         ),

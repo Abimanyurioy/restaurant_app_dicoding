@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:restaurants_app/data/api/restaurant_services.dart';
 import 'package:restaurants_app/provider/restaurant_search_provider.dart';
@@ -16,7 +17,7 @@ class RestaurantSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => RestaurantSearchProvider(apiService: ApiService()),
+      create: (_) => RestaurantSearchProvider(apiService: ApiService(http.Client())),
       builder: (context, _) {
         return Scaffold(
           resizeToAvoidBottomInset: false,

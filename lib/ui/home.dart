@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:restaurants_app/data/models/slider.dart';
@@ -23,7 +24,7 @@ class RestaurantHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantListProvider>(
-      create: (_) => RestaurantListProvider(apiService: ApiService()),
+      create: (_) => RestaurantListProvider(apiService: ApiService(http.Client())),
       child: Scaffold(
         appBar: _buildAppBar(context),
         body: PageView(
